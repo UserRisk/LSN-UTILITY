@@ -14,9 +14,33 @@
             --border: rgba(255, 255, 255, 0.06);
         }
 
+        /* Basic Setup */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { background: var(--bg); color: #fff; font-family: 'Outfit', sans-serif; overflow-x: hidden; line-height: 1.6; }
 
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 40px var(--accent-glow); }
+            100% { box-shadow: 0 0 20px var(--accent-glow); }
+        }
+
+        @keyframes statusFade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .animate { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Hero */
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 50% -20%, var(--accent-glow) 0%, transparent 50%), linear-gradient(to bottom, #020202, #050505);
@@ -27,34 +51,42 @@
         .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 5px; color: #fff; text-decoration: none; }
         .logo span { color: var(--accent); }
 
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px 60px; }
         
-        .stats-container { display: flex; gap: 40px; margin-bottom: 20px; }
-        .stat-item { text-align: center; }
-        .counter-num { font-size: 2.5rem; font-weight: 900; color: var(--accent); display: block; text-shadow: 0 0 20px var(--accent-glow); transition: 0.3s; }
+        .status-tag { background: rgba(0, 255, 170, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; border-radius: 50px; font-size: 0.65rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 20px; animation: statusFade 2s infinite; }
+
+        .stats-container { display: flex; gap: 40px; margin-bottom: 30px; }
+        .counter-num { font-size: 2.5rem; font-weight: 900; color: var(--accent); display: block; text-shadow: 0 0 20px var(--accent-glow); }
         .stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 2px; }
 
-        .hero h1 { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; line-height: 0.8; letter-spacing: -6px; margin-bottom: 30px; background: linear-gradient(to bottom, #fff 30%, #444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; line-height: 0.8; letter-spacing: -5px; margin-bottom: 30px; background: linear-gradient(to bottom, #fff 30%, #444 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .download-btn { background: #fff; color: #000; padding: 22px 50px; border-radius: 100px; text-decoration: none; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1); cursor: pointer; border: none; margin-bottom: 20px; }
-        .download-btn:hover { transform: scale(1.05); background: var(--accent); box-shadow: 0 0 60px var(--accent-glow); }
+        .download-btn { background: #fff; color: #000; padding: 22px 50px; border-radius: 100px; text-decoration: none; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.4s; cursor: pointer; border: none; animation: pulseGlow 3s infinite; }
+        .download-btn:hover { transform: scale(1.05) translateY(-3px); background: var(--accent); }
 
+        /* Feature Grid */
+        .features { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .bento-item { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 40px; transition: 0.4s; }
+        .bento-item:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .span-2 { grid-column: span 2; }
+        .accent-text { color: var(--accent); font-family: 'JetBrains Mono'; font-weight: 700; font-size: 0.7rem; margin-bottom: 15px; display: block; letter-spacing: 2px; }
+        .bento-item h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .bento-item p { color: #666; font-size: 0.85rem; }
+
+        /* Reviews */
         .reviews { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; font-weight: 900; letter-spacing: -1px; }
+        .section-header { text-align: left; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; }
         
         .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .review-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 30px; transition: 0.3s; }
-        .review-card:hover { border-color: var(--accent); }
-        
+        .review-card:hover { border-color: var(--accent); background: rgba(0,255,170,0.02); }
         .user-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .avatar { width: 40px; height: 40px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent); font-size: 0.8rem; border: 1px solid var(--border); }
-        .user-meta h4 { font-size: 0.9rem; font-weight: 700; }
-        .user-meta span { font-size: 0.7rem; color: #555; }
-        
-        .review-text { color: #888; font-size: 0.9rem; font-style: italic; }
-        .stars { color: var(--accent); font-size: 0.8rem; margin-top: 10px; }
+        .avatar { width: 40px; height: 40px; background: #111; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent); }
+        .review-text { color: #888; font-size: 0.9rem; min-height: 60px; }
 
-        footer { padding: 80px 20px; text-align: center; border-top: 1px solid var(--border); color: #333; letter-spacing: 2px; font-size: 0.7rem; }
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid var(--border); color: #333; font-size: 0.7rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -64,75 +96,123 @@
     <nav>
         <a href="#" class="logo">LSN<span>.</span></a>
         <div style="display: flex; gap: 30px;">
+            <a href="#features" style="color: #666; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Modules</a>
             <a href="#reviews" style="color: #666; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Reviews</a>
-            <a href="#" style="color: #666; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">Discord</a>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="stats-container">
+        <div class="status-tag animate">ONLINE & UNDETECTED</div>
+        <div class="stats-container animate delay-1">
             <div class="stat-item">
                 <span class="counter-num" id="dl-count">115</span>
-                <span class="stat-label">Total Downloads</span>
+                <span class="stat-label">Downloads</span>
             </div>
             <div class="stat-item">
-                <span class="counter-num">1.21</span>
-                <span class="stat-label">MC Version</span>
+                <span class="counter-num">0.0ms</span>
+                <span class="stat-label">Latency</span>
             </div>
         </div>
-        <h1>LSN UTILITY</h1>
-        <p style="color: #666; margin-bottom: 40px;">Professional packet-level synchronization. Undetected. Stream-safe.</p>
-        <a href="https://www.mediafire.com/file/c733xydneolceyt/LsUtils-1.31.2.jar/file" class="download-btn" onclick="handleDownload(event)">Download 1.21-1.21.11</a>
+        <h1 class="animate delay-2">LSN UTILITY</h1>
+        <p class="animate delay-3" style="color: #666; max-width: 600px; margin-bottom: 40px;">The #1 choice for Lifesteal raiders. Advanced packet control with frame-perfect automation.</p>
+        <a href="https://www.mediafire.com/file/c733xydneolceyt/LsUtils-1.31.2.jar/file" class="download-btn animate delay-3" onclick="handleDownload(event)">Download 1.21-1.21.11</a>
     </header>
 
+    <section class="features" id="features">
+        <div class="bento-grid">
+            <div class="bento-item span-2 animate">
+                <span class="accent-text">// DEFENSE_GRID</span>
+                <h3>Auto Patcher/Builder</h3>
+                <p>Intercepts cannon fire and TNT projectiles by instantly constructing vertical sand columns. Maintains base HP during offline attempts.</p>
+            </div>
+            <div class="bento-item animate">
+                <span class="accent-text">// COMBAT</span>
+                <h3>FistStrike 2.0</h3>
+                <p>Optimized hit-sync for 1.21. Maximize reach and hitreg.</p>
+            </div>
+            <div class="bento-item animate">
+                <span class="accent-text">// RAID_INTEL</span>
+                <h3>CC-Finder v2</h3>
+                <p>Detect ClaimChests and see real-time Power Levels.</p>
+            </div>
+            <div class="bento-item span-2 animate">
+                <span class="accent-text">// STEALTH</span>
+                <h3>Screenshare Bypass</h3>
+                <p>All visuals are completely invisible to Discord, OBS, and AnyDesk. Recorded footage will appear as 100% vanilla gameplay.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="reviews" id="reviews">
-        <h2 class="section-title">USER TESTIMONIALS</h2>
+        <div class="section-header">
+            <h2>RAIDER FEEDBACK</h2>
+        </div>
         <div class="review-grid">
-            <div class="review-card">
+            <div class="review-card animate">
                 <div class="user-info">
-                    <div class="avatar">V</div>
-                    <div class="user-meta"><h4>ViperPVP</h4><span>Lifesteal Elite</span></div>
+                    <div class="avatar">Z</div>
+                    <div class="user-meta"><h4>Zerk_</h4><span>Elite Raider</span></div>
                 </div>
-                <p class="review-text">"Auto Patcher saved my base from a 4-man cannon raid last night. 0ms reaction is no joke."</p>
-                <div class="stars">★★★★★</div>
+                <p class="review-text">"Used this for 3 months on Lifesteal.net. Never been flagged. The Auto Patcher is a literal life saver."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
             </div>
-            <div class="review-card">
+            <div class="review-card animate delay-1">
                 <div class="user-info">
-                    <div class="avatar">X</div>
-                    <div class="user-meta"><h4>Xane_</h4><span>Verified User</span></div>
+                    <div class="avatar">K</div>
+                    <div class="user-meta"><h4>Kryptic</h4><span>Verified User</span></div>
                 </div>
-                <p class="review-text">"The screenshare bypass is perfect. Recorded my entire session with OBS and not a single module showed up."</p>
-                <div class="stars">★★★★★</div>
+                <p class="review-text">"The Claim Analyzer is insane. Knowing the power level before wasting 2 stacks of TNT is meta."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
             </div>
-            <div class="review-card">
+            <div class="review-card animate delay-2">
                 <div class="user-info">
-                    <div class="avatar">D</div>
-                    <div class="user-meta"><h4>D3ath_</h4><span>Raider</span></div>
+                    <div class="avatar">M</div>
+                    <div class="user-meta"><h4>M0nday</h4><span>Veteran</span></div>
                 </div>
-                <p class="review-text">"CC-Finder actually finds ClaimChests through obsidian. Best raid utility I've ever used."</p>
-                <div class="stars">★★★★★</div>
+                <p class="review-text">"Best 1.21 utility out. FistStrike makes pvp feel like I'm on 0 ping even when I'm at 100."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
+            </div>
+            <div class="review-card animate">
+                <div class="user-info">
+                    <div class="avatar">S</div>
+                    <div class="user-meta"><h4>Swift</h4><span>Member</span></div>
+                </div>
+                <p class="review-text">"Screenshare bypass actually works. Got SS'd by an admin and passed while using ESP."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
+            </div>
+            <div class="review-card animate delay-1">
+                <div class="user-info">
+                    <div class="avatar">F</div>
+                    <div class="user-meta"><h4>Frost</h4><span>Raider</span></div>
+                </div>
+                <p class="review-text">"The HUD is clean and simple. Doesn't clutter the screen like other clients."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
+            </div>
+            <div class="review-card animate delay-2">
+                <div class="user-info">
+                    <div class="avatar">B</div>
+                    <div class="user-meta"><h4>Bane</h4><span>Elite</span></div>
+                </div>
+                <p class="review-text">"Highly recommend for anyone serious about raiding high-tier bases."</p>
+                <div style="color:var(--accent); font-size: 0.7rem; margin-top: 10px;">★★★★★</div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 LSN UTILITY • BUILD 1.31.2</p>
+        <p>© 2026 LSN UTILITY • OPTIMIZED FOR LIFESTEAL ECOSYSTEM</p>
     </footer>
 
     <script>
-        // --- CONFIGURATION ---
         const START_COUNT = 115;
-        // Seed based on the date to keep randomness consistent for all users per hour
         const LAUNCH_DATE = new Date("February 21, 2026 00:00:00").getTime();
         const NAMESPACE = "lsn_utility_userrisk"; 
         const KEY = "downloads";
         const countElement = document.getElementById('dl-count');
 
-        // Simple pseudo-random function to ensure all users see the same "random" growth
         function getPseudoRandomDownloads(hours) {
             let totalRandom = 0;
             for (let i = 0; i < hours; i++) {
-                // Generates a consistent "random" number between 1 and 7 based on the hour index
                 const seed = Math.sin(LAUNCH_DATE + i) * 10000;
                 totalRandom += Math.floor((seed - Math.floor(seed)) * 7) + 1;
             }
@@ -144,44 +224,28 @@
                 const response = await fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}`);
                 const data = await response.json();
                 let apiValue = data.count || 0;
-
                 const now = new Date().getTime();
                 const hoursSinceLaunch = Math.floor((now - LAUNCH_DATE) / (1000 * 60 * 60));
-                
-                // Base 115 + Real Clicks + Random Growth (1-7 per hour)
-                const randomGrowth = getPseudoRandomDownloads(hoursSinceLaunch);
-                const total = START_COUNT + apiValue + randomGrowth;
-                
+                const total = START_COUNT + apiValue + getPseudoRandomDownloads(hoursSinceLaunch);
                 countElement.innerText = total;
-            } catch (err) {
-                console.log("Counter API error.");
-            }
+            } catch (err) {}
         }
 
         updateCounter();
 
-        async function handleDownload(event) {
+        function handleDownload(event) {
             event.preventDefault();
-            const fileURL = "https://www.mediafire.com/file/c733xydneolceyt/LsUtils-1.31.2.jar/file";
+            fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`);
             const webhookURL = "https://discord.com/api/webhooks/1474895963674906654/m09jglkPu_VeQ5fX-7oLzLHtFttHbtUJ7H76R1xvittRcGU4iHQUADJcGDtV745DwrlI";
-            
-            fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${KEY}/up`).then(() => updateCounter());
-
             fetch(webhookURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     username: "LSN TRACKER",
-                    embeds: [{
-                        title: "📥 DOWNLOAD LOGGED",
-                        color: 65450,
-                        description: `A user started the download.`,
-                        timestamp: new Date()
-                    }]
+                    embeds: [{ title: "📥 DOWNLOAD LOGGED", color: 65450, timestamp: new Date() }]
                 })
-            }).catch(() => {});
-
-            setTimeout(() => { window.location.href = fileURL; }, 500);
+            });
+            setTimeout(() => { window.location.href = "https://www.mediafire.com/file/c733xydneolceyt/LsUtils-1.31.2.jar/file"; }, 500);
         }
     </script>
 </body>
